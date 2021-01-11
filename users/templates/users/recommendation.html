@@ -1,0 +1,25 @@
+{% extends 'reviews/song_list.html' %}
+
+{% block header %}
+
+<h1 class="ui dividing header">
+    <p class="content">
+        Recommendations for {{ user.username|title }}
+        <div class="sub header">Based on your reviews, here is a list of songs that we think you
+            might be interested in!
+        </div>
+    </p>
+</h1>
+<p>
+    Not happy with these recommendations?
+    <a href="{% url 'more_recommendation' %}">
+        <button class="ui labeled icon button">
+            <i class="hand point up outline icon"></i>
+            Get More Suggestions!
+        </button>
+    </a>
+</p>
+
+
+
+{% endblock header %}

@@ -1,0 +1,26 @@
+{% extends 'reviews/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div>
+    <form action="" method="post" class="ui large form">
+        {% csrf_token %}
+        <fieldset class="field">
+            <legend class="ui header"> Login
+            </legend>
+            {{ form|crispy}}
+            <button class='ui grey button' type="submit">
+                Login
+            </button> <small> <a href="{% url 'password_reset' %}">Forgot Password?</a></small>
+        </fieldset>
+
+
+    </form>
+    <div class="ui vertical segment">
+        <p>
+            Don't have an account? <a href="{% url 'register' %}">Register Now</a>
+        </p>
+    </div>
+</div>
+
+{% endblock content %}

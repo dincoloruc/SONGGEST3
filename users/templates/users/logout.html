@@ -1,0 +1,12 @@
+{% extends 'reviews/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="ui vertical segment">
+    <h2 class='ui header'>Logged out</h2>
+    <p> Thank you for spending time on SongGest! See you next time.</p>
+    <p><a href="{% url 'login' %}">Log in again</a></p>
+</div>
+
+
+{% endblock content %}

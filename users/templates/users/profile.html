@@ -1,0 +1,54 @@
+{% extends 'reviews/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1 class="ui dividing header">{{ user.username|title }}'s Profile</h1>
+
+<div class="ui vertical segment">
+    <form action="" method="post" class="ui form">
+        {% csrf_token %}
+        <fieldset class="field">
+            <legend class="ui header"> Update Your Profile
+            </legend>
+            {{ user_form|crispy}}
+            <button class='ui grey button' type="submit">
+                Update
+            </button>
+        </fieldset>
+    </form>
+</div>
+
+{% if user.review_set.all %}
+<div class="ui comments">
+    <h3 class="ui dividing header">My Reviews</h3>
+    {% for review in user.review_set.all %}
+    <div class="ui vertical segment">
+        <h4 class="ui header">
+            Reviewed <a href="{% url 'song_detail' review.song.id %}">"{{ review.song.name }}" from
+                {{ review.song.artist }} </a>
+        </h4>
+        <p>Rated {{ review.rating }} / 10 <small class="muted-text">
+                {{ review.date_created }}</small> </p>
+        {% include "reviews/update_delete_buttons.html" %}
+
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+    <h3>You have not reviewed any song yet.</h3>
+    <ul>
+        <li> Discover new songs from <a href="{% url 'recommendation' %}"> a personalized recommendation list</a>
+            generized by our smart machine
+            learning
+            algorithm.</li>
+        <li>Check out <a href="{% url 'song_list' %}">our song list and add your review</a>.</li>
+    </ul>
+    {% endif %}
+
+
+</div>
+</div>
+</div>
+
+{% endblock content %}
