@@ -1,0 +1,17 @@
+{% extends "reviews/base.html" %}
+{% block content %}
+
+
+<div class="ui raised segment">
+    <h4 class="ui header">
+        Review of <a href="{% url 'song_detail' review.song.id %}">"{{ review.song.name }}" from
+            {{ review.song.genre }} </a>
+    </h4>
+    <p>Rated {{ review.rating }} of 10 by <a href="{% url 'user_reviews' review.author.username %}">{{ review.author}}
+        </a><small class="muted-text">
+            {{ review.date_created }}</small> </p>
+    {% include "reviews/update_delete_buttons.html" %}
+
+</div>
+
+{% endblock content %}

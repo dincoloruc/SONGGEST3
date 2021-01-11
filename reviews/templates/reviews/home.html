@@ -1,0 +1,43 @@
+{% extends "reviews/base.html" %}
+{% block content %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui text container">
+        <h2 class="ui header">List of songs</h2>
+        <a class="ui large button" href="{% url 'song_list' %}">See All {{ song_count }} Songs</a>
+
+        <div class="ui divider"></div>
+
+        <h2 class="ui  header ">Checkout Top Reviews for Any Song</h2>
+        <div class="ui equal width stackable internally celled grid">
+            <div class="center aligned row">
+
+                {% for review in review_list %}
+                <div class="column">
+                    <p>(Review of "{{review.song.name}}" by {{review.song.genre}})</p>
+                    <p>Rated {{review.rating}}/10 by {{review.author}}</p>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <a class="ui large button" href="{% url 'review_list' %}">See All {{ review_count }} Reviews</a>
+
+
+        <h4 class="ui horizontal header divider">
+            <a href="{% url 'register' %}">Join Us Now</a>
+        </h4>
+        <h2 class="ui header">Get Personalized Song Recommendations</h2>
+        <p>Register now and you will get a recommendation list
+            based on our smart machine learning algorithm! We use K-means clustering that makes use of user similarity
+            in order to provide the recommendations, so the more reviews on the website, the smarter the recommendation
+            will get! </p>
+        <a class="ui large button" href="{% url 'recommendation' %}">Get Recommendations</a>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}

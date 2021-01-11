@@ -1,0 +1,17 @@
+{% extends "reviews/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="ui vertical segment">
+    <h2 class=" ui header"> Update Review for "<a
+            href="{% url 'song_detail' object.song.id %}">{{object.song.name}}</a>" </h2>
+
+    <form action="" method="post" class="ui reply form" style="margin-top: 20px;">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="ui blue submit icon button" type="submit" value="Update Review" />
+    </form>
+</div>
+
+{% endblock content %}

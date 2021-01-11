@@ -1,0 +1,10 @@
+            {% if review.author == user %}
+            <div>
+                <a class="ui mini blue button" href='{% url 'update_review' review.id%}'>
+                    Update
+                </a>
+                <a class="ui mini red button" href='{% url 'delete_review' review.id%}'>
+                    Delete
+                </a>
+            </div>
+            {% endif %}

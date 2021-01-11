@@ -1,0 +1,29 @@
+{% extends "reviews/base.html" %}
+{% block content %}
+{% block header %}
+<h1 class="ui dividing header">Latest Reviews</h1>
+{% endblock header %}
+
+{% include "reviews/pagination.html" %}
+
+{% if review_list %}
+{% for review in review_list %}
+<div class="ui vertical segment">
+    <h4 class="ui header"> Review of <a href="{% url 'song_detail' review.song.id %}">"{{ review.song.name }}"
+            from
+            {{ review.song.artist }} </a>
+    </h4>
+    <p>Rated {{ review.rating }} / 10 by <a href="{% url 'user_reviews' review.author.username %}">{{ review.author}}
+        </a><small class="muted-text">
+            {{ review.date_created }}</small> </p>
+
+    <small><a href="{% url 'review_detail' review.id %}"> Read more </a></small>
+    {% include "reviews/update_delete_buttons.html" %}
+
+</div>
+{% endfor %}
+{% endif %}
+
+{% include "reviews/pagination.html" %}
+
+{% endblock content %}

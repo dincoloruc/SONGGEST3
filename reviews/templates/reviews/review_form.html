@@ -1,0 +1,77 @@
+{% extends "reviews/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="ui vertical segment">
+    <h2 class=" ui header"> Review "<a href="{% url 'song_detail' song.id %}">{{song.name}}</a>" </h2>
+
+    <form action="" method="post" class="ui reply form" style="margin-top: 20px;">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <input class="ui blue submit icon button" type="submit" value="Add Review" />
+
+    </form>
+    <h4 class="ui horizontal divider header">
+        <i class="tag icon"></i>
+        Description
+    </h4>
+    <table class="ui definition table">
+        <tbody>
+            <tr>
+                <td style="width:30%;">Song Name</td>
+                <td> {{ song.name }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Artist</td>
+                <td> ${{ song.artist }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Genre</td>
+                <td> {{ song.genre }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Website</td>
+                <td> {{ song.year }}</td>
+        </tbody>
+    </table>
+
+    <h4 class="ui horizontal divider header">
+        <i class="bar chart icon"></i>
+        Specifications
+    </h4>
+
+    <table class="ui definition small table">
+        <tbody>
+            <tr>
+                <td style="width:30%;">BPM</td>
+                <td> {{ song.BPM}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Energy</td>
+                <td> {{ song.energy}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Popularity</td>
+                <td> {{ song.popularity}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+{% endblock content %}

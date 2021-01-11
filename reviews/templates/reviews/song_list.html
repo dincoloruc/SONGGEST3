@@ -1,0 +1,57 @@
+{% extends "reviews/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block header %}
+<h1 class="ui dividing header">
+    <p class="content">
+        View All Songs
+        <div class="sub header">Click on the song name to see specifications and reviews of the song.
+        </div>
+    </p>
+</h1>
+{% endblock header %}
+
+{% if filter %}
+<form method="GET" class="ui form">
+    <div class="three fields">
+        {{ filter.form|crispy}}
+    </div>
+    <button type="submit" class="ui blue button">Search</button>
+</form>
+{% endif %}
+
+<div class="ui divider"></div>
+{% if song_list %}
+{% include "reviews/pagination.html" %}
+<div>
+    <table class="ui selectable celled small compact table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Genre</th>
+                <th>Year</th>
+                <th>length</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for song in song_list %}
+            <tr>
+                <td><a href="{% url 'song_detail' song.id %}">{{song.name}} </a></td>
+                <td><a href="{% url 'song_detail' song.id %}">{{song.artist}}</a></td>
+                <td><a href="{% url 'song_detail' song.id %}">{{song.genre}}</a></td>
+                <td><a href="{% url 'song_detail' song.id %}">{{song.year}}</a></td>
+                <td><a href="{% url 'song_detail' song.id %}">{{song.length}}sec</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include "reviews/pagination.html" %}
+{% else %}
+<p class="ui warning message">
+    Oops, no song was found. Please change your query and search again!
+</p>
+{% endif %}
+
+{% endblock content %}

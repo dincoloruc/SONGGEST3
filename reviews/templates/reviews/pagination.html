@@ -1,0 +1,24 @@
+{% load pagination_tag %}
+{% if is_paginated %}
+<span>Go to Page:</span>
+<div class="ui buttons" style="margin: 20px 10px;">
+    {% if page_obj.has_previous %}
+    <a class="ui grey mini compact button" href="?{% param_replace page=1 %}">First</a>
+    <a class="ui grey basic mini compact button" href="?{% param_replace page=page_obj.previous_page_number %}">←</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <p class="ui grey basic disabled mini compact button"> {{ num }}</p>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="ui grey basic mini compact button" href="?{% param_replace page=num %}"> {{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a class="ui grey basic mini compact button" href="?{% param_replace page=page_obj.next_page_number %}">→</a>
+    <a class="ui grey  mini compact button" href="?{% param_replace page=page_obj.paginator.num_pages %}">Last</a>
+    {% endif %}
+
+</div>
+{% endif %}

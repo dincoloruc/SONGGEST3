@@ -1,0 +1,129 @@
+{% extends "reviews/base.html" %}
+{% block content %}
+<div class="ui segment">
+    <h2 class=" ui centered header"> Details of  "{{ song.name }}" </h2>
+    <h4 class="ui horizontal divider header">
+        <i class="tag icon"></i>
+        Description
+    </h4>
+    <table class="ui definition table">
+        <tbody>
+            <tr>
+                <td>Song-id</td>
+                <td> {{ song.id }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Artist</td>
+                <td> {{ song.artist }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td style="width:30%;">Song Genre</td>
+                <td> {{ song.genre }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Year</td>
+                <td> {{ song.year }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="ui horizontal divider header">
+        <i class="bar chart icon"></i>
+        Specifications
+    </h4>
+
+    <table class="ui definition small table">
+        <tbody>
+            <tr>
+                <td>BPM</td>
+                <td> {{ song.BPM}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Energy</td>
+                <td> {{ song.energy }}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Danceability</td>
+                <td> {{ song.danceability}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Loudness</td>
+                <td> {{ song.loudness}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Liveness</td>
+                <td> {{ song.liveness}}</td>
+            </tr>
+        </tbody>
+            <tr>
+                <td>Length</td>
+                <td> {{ song.length}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Acousticness</td>
+                <td> {{ song.acousticness}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Speechiness</td>
+                <td> {{ song.speechiness}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>Popularity</td>
+                <td> {{ song.popularity}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>{{ song.review_set.count }} reviews (Average rating: {{ song.average_rating | floatformat }}/10 )</h5>
+    <a href="{% url 'new_review' song.id%}" class="ui blue submit icon button">Add Review</a>
+</div>
+
+{% if song.review_set.all %}
+<div class="ui comments">
+    <h3 class="ui dividing header">Recent reviews</h3>
+    {% for review in song.review_set.all reversed%}
+    <div class="comment">
+        <div class="content">
+            <span class="author"> Rated {{ review.rating }} of 10 by <a
+                    href="{% url 'user_reviews' review.author.username %}">{{ review.author}}
+                </a></span>
+            <div class="metadata">
+                <span class="date">{{ review.date_created }}</span></div>
+            </div>
+            <div class="actions">
+                <a href="{% url 'review_detail' review.id %}" class="reply">Read More</a>
+            </div>
+            {% include "reviews/update_delete_buttons.html" %}
+
+            {% endfor %}
+
+            {% else %}
+            <h3>No reviews for this song yet</h3>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
